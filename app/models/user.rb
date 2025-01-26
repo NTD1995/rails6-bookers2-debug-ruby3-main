@@ -12,6 +12,7 @@ class User < ApplicationRecord
   validates :introduction, presence: true   
   
     has_many :favorites, dependent: :destroy
+    has_many :book_comments, dependent: :destroy
   
   def get_profile_image
     (profile_image.attached?) ? profile_image : 'no_image.jpg'
