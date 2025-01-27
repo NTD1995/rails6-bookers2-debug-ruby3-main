@@ -4,16 +4,16 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  # belongs_to :books
+
    has_many :books
-  has_one_attached :profile_image
+  has_one_attached :profile_image  
+  has_many :favorites, dependent: :destroy
+  has_many :book_comments, dependent: :destroy
+  
 
   validates :name, length: { minimum: 2, maximum: 20 }, uniqueness: true , presence: true
   validates :introduction, presence: true   
-  
-    has_many :favorites, dependent: :destroy
-    has_many :book_comments, dependent: :destroy
-  
+
   def get_profile_image
     (profile_image.attached?) ? profile_image : 'no_image.jpg'
   end
