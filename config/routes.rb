@@ -15,15 +15,13 @@ Rails.application.routes.draw do
     resource :relationships, only: [:create, :destroy]
      get "followers" => "relationships#followers", as: "followers"
   	 get "followeds" => "relationships#followeds", as: "followeds"
+     get "daily_posts" => "users#daily_posts"
   end
 
-   get "/search", to: "searches#search"
-
-  resources :users, only: [:index,:show,:edit,:update] do
-     get "search" => "users#search"
-  end
   resources :messages, only: [:create]
   resources :rooms, only: [:create, :show]
+
+  get "/search", to: "searches#search"
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
 end
