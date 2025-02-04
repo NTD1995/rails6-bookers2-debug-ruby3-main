@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'groups/new'
+  get 'groups/index'
+  get 'groups/show'
+  get 'groups/edit'
   get 'relationships/create'
   get 'relationships/destroy'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
@@ -22,6 +26,8 @@ Rails.application.routes.draw do
   resources :rooms, only: [:create, :show]
 
   get "/search", to: "searches#search"
+
+  resources :groups, only: [:new, :index, :show, :create, :edit, :update]
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
 end
