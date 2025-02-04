@@ -10,15 +10,35 @@
     <div class='col-md-8 offset-md-1'>
       <h2>Group Detail</h2>
       <table class='table table-hover table-inverse'>
+       <thead>
+    <tr>
+      <th>イメージ画像</th>
+      <th>グループ名</th>
+      <th>紹介文</th>
+      <th>メンバー数</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
         <tr>
           <td><%= image_tag @group.get_group_image, size: '50x50' %></td>
           <td><%= @group.name %></td>
           <td><%= @group.introduction %></td>
           <td>
-            <% if @group.is_owned_by?(current_user) %>
-              <%= link_to 'Edit', edit_group_path(@group), class: "btn btn-sm btn-success" %>
-            <% end %>
-          </td>
+              <% if @group.owner_id == current_user.id %>
+                <%= link_to "Edit", edit_group_path(@group), class: "btn btn-success" %>
+              <% else %>
+                <% if @group.include_user?(current_user) %>
+                  <%= link_to "Leave this group", group_group_users_path(@group), method: :delete, class: "btn btn-danger" %>
+                <% else %>
+                  <%= link_to "Join this group", group_group_users_path(@group), method: :post, class: "btn btn-success" %>
+                <% end %>
+              <% end %>
+            </td>
+            <td>
+                <% @group.users.each do |user| %>
+                  <li style="list-style:none;"><%= user.name %></li>
+                <% end %>
+            </td>
         </tr>
       </table>
     </div>
