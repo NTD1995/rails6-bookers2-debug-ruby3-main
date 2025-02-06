@@ -8,8 +8,6 @@
     </tr>
   </thead>
   <tbody>
-      <%= link_to "新しい順", books_path(sort: 'created_at DESC') %> 
-      <%= link_to "評価の高い順", books_path(sort: 'star DESC') %>
     <% books.each do |book| %>
          <tr>
         <td><%= link_to(book.user) do %>
