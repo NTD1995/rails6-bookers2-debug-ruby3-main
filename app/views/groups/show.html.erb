@@ -30,16 +30,20 @@
             </td>
           <td>
               <% if @group.owner_id == current_user.id %>
+              <td>
                 <%= link_to "Edit", edit_group_path(@group), class: "btn btn-success" %>
+              </td>
+              <td>
+              <%= link_to 'Notice an Event', new_group_event_notice_path(@group), class: "btn btn-sm btn-info" %>
+            </td>
               <% else %>
                 <% if @group.include_user?(current_user) %>
                   <%= link_to "Leave this group", group_group_users_path(@group), method: :delete, class: "btn btn-danger" %>
                 <% else %>
                   <%= link_to "Join this group", group_group_users_path(@group), method: :post, class: "btn btn-success" %>
                 <% end %>
+             </td> 
               <% end %>
-            </td> 
-            <td><%= link_to "Notice an Event", event_notices_path(@group), class: "btn btn-info" %></td>
         </tr>
       </table>
     </div>
