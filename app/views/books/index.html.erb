@@ -11,6 +11,9 @@
       <h2>Books</h2>
           <%= link_to "新しい順", books_path(sort: 'created_at DESC') %> | <%= link_to "評価の高い順", books_path(sort: 'star DESC') %>
       <%= render 'index', books: @books%>
+            <% if @book.category.present? %>
+              <%= link_to book.category, tag_searches_search_path(content: book.category) %>
+            <% end %>
     </div>
   </div>
 </div>
