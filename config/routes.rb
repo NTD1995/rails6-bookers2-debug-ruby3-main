@@ -26,10 +26,18 @@ Rails.application.routes.draw do
   resources :groups, only: [:new, :index, :show, :create, :edit, :update] do
        resource :group_users, only: [:create, :destroy]
            resources :event_notices, only: [:new, :create]
-    get "event_notices" => "event_notices#sent"
+             get "event_notices" => "event_notices#sent"
+  end
+
+  if Rails.env.development?
+    mount LetterOpenerWeb::Engine, at: "/letter_opener"
   end
 
   get "tag_searches/search" => "tag_searches#search"
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+
+  devise_scope :user do
+    post "users/guest_sign_in", to: "users/sessions#guest_sign_in"
+  end
 
 end
