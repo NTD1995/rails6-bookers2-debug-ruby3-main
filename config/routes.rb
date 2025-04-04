@@ -26,7 +26,11 @@ Rails.application.routes.draw do
   resources :groups, only: [:new, :index, :show, :create, :edit, :update] do
        resource :group_users, only: [:create, :destroy]
            resources :event_notices, only: [:new, :create]
-    get "event_notices" => "event_notices#sent"
+             get "event_notices" => "event_notices#sent"
+  end
+
+  if Rails.env.development?
+    mount LetterOpenerWeb::Engine, at: "/letter_opener"
   end
 
   get "tag_searches/search" => "tag_searches#search"
